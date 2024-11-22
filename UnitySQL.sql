@@ -194,3 +194,20 @@ INSERT INTO platos (id, nombre, precio, fecha, pedidos) VALUES
 (4, 'Sancocho', 18000.00, '2024-11-04', 4),
 (5, 'Empanadas', 3000.00, '2024-11-05', 5);
 GO
+
+CREATE PROCEDURE ObtenerInscripciones
+AS
+BEGIN
+    SELECT 
+        I.InscripcionID,
+        E.Nombre + ' ' + E.Apellido AS Estudiante,
+        C.NombreCurso AS Curso,
+        I.FechaInscripcion
+    FROM Inscripciones I
+    INNER JOIN Estudiantes E ON I.EstudianteID = E.EstudianteID
+    INNER JOIN Cursos C ON I.CursoID = C.CursoID
+    ORDER BY Estudiante ASC;
+END;
+GO
+
+EXEC ObtenerInscripciones;
